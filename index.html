@@ -13,13 +13,13 @@
         }
         body {
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #171717, #3b0a0a, #111);
             overflow: hidden;
-            touch-action: none;
         }
         .background-circle {
             position: fixed;
@@ -42,7 +42,7 @@
             width: 90%;
             max-width: 500px;
             min-height: 360px;
-            padding: 45px 30px;
+            padding: 40px 25px;
             background: rgba(20, 20, 20, 0.92);
             border-radius: 25px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -50,9 +50,6 @@
             text-align: center;
             color: white;
             z-index: 10;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
         }
         .emoji {
             font-size: 55px;
@@ -63,68 +60,70 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-        h1 { font-size: 28px; margin-bottom: 12px; }
-        p { color: #aaa; margin-bottom: 35px; font-size: 16px; }
-        .buttons { 
-            position: relative; 
-            width: 100%; 
-            height: 110px; 
+        h1 { font-size: 26px; margin-bottom: 12px; }
+        p { color: #aaa; margin-bottom: 30px; font-size: 15px; }
+        .buttons {
+            position: relative;
+            width: 100%;
+            height: 120px;
+            margin-top: 10px;
         }
         button {
             position: absolute;
             border: none;
-            padding: 16px 36px;
+            padding: 16px 32px;
             border-radius: 12px;
             font-size: 18px;
             font-weight: bold;
+            color: white;
             cursor: pointer;
-            transition: transform 0.15s ease;
-            z-index: 20;
             user-select: none;
             -webkit-user-select: none;
+            touch-action: manipulation;
         }
-        #sim { 
-            background: #27ae60; 
-            color: white; 
-            left: 15%; 
-            top: 25px; 
+        #sim {
+            background: #27ae60;
+            left: 12%;
+            top: 30px;
         }
-        #nao { 
-            background: #e74c3c; 
-            color: white; 
-            right: 15%; 
-            top: 25px; 
+        #nao {
+            background: #e74c3c;
+            right: 12%;
+            top: 30px;
         }
-        /* Tela final */
-        .final { display: none; }
-        .final.show { display: block; animation: aparecer 0.6s ease; }
-        .question.hide { display: none; }
+        .final {
+            display: none;
+        }
+        .final.show {
+            display: block;
+            animation: aparecer 0.6s ease;
+        }
+        .question.hide {
+            display: none;
+        }
         .macaco {
-            width: 280px;
+            width: 260px;
             max-width: 90%;
             border-radius: 15px;
             margin: 0 auto;
             display: block;
-            animation: aparecer 0.8s ease;
         }
         @keyframes aparecer {
             from { opacity: 0; transform: scale(0.7); }
             to { opacity: 1; transform: scale(1); }
         }
-        @media (max-width: 500px) {
-            .container { min-height: 380px; padding: 40px 18px; }
-            h1 { font-size: 24px; }
-            #sim { left: 8%; }
-            #nao { right: 8%; }
-            .macaco { width: 230px; }
+        @media (max-width: 480px) {
+            h1 { font-size: 23px; }
+            #sim { left: 5%; }
+            #nao { right: 5%; }
         }
     </style>
 </head>
 <body>
     <div class="background-circle circle1"></div>
     <div class="background-circle circle2"></div>
+
     <div class="container">
-        <!-- PERGUNTA -->
         <div class="question" id="question">
             <div class="emoji">🚿</div>
             <h1>Laís, você tomou banho hoje?</h1>
@@ -134,52 +133,48 @@
                 <button id="nao">NÃO</button>
             </div>
         </div>
-        <!-- TELA FINAL -->
+
         <div class="final" id="final">
-            <img src="macaquinho.jpg" alt="Macaquinho no banho" class="macaco">
+            <img src="macaquinho.jpg" alt="Macaquinho" class="macaco">
         </div>
     </div>
 
     <script>
-        const botaoSim = document.getElementById("sim");
-        const botaoNao = document.getElementById("nao");
-        const pergunta = document.getElementById("question");
+        const sim = document.getElementById("sim");
+        const nao = document.getElementById("nao");
+        const question = document.getElementById("question");
         const final = document.getElementById("final");
 
-        // Função que faz o SIM fugir
-        function fugir(e) {
-            if (e) e.preventDefault();
+        function fugir() {
+            // Coloca o botão solto na tela
+            sim.style.position = "fixed";
+            sim.style.zIndex = "9999";
 
-            botaoSim.style.position = "fixed";
-            botaoSim.style.zIndex = "9999";
+            const maxX = window.innerWidth - sim.offsetWidth - 20;
+            const maxY = window.innerHeight - sim.offsetHeight - 20;
 
-            const btnWidth = botaoSim.offsetWidth;
-            const btnHeight = botaoSim.offsetHeight;
+            const x = Math.floor(Math.random() * maxX);
+            const y = Math.floor(Math.random() * maxY);
 
-            const maxX = window.innerWidth - btnWidth - 10;
-            const maxY = window.innerHeight - btnHeight - 10;
-
-            const x = Math.random() * maxX;
-            const y = Math.random() * maxY;
-
-            botaoSim.style.left = x + "px";
-            botaoSim.style.top = y + "px";
+            sim.style.left = x + "px";
+            sim.style.top = y + "px";
         }
 
-        // Eventos pro botão SIM (funciona no celular e no PC)
-        botaoSim.addEventListener("mouseover", fugir);
-        botaoSim.addEventListener("touchstart", fugir, { passive: false });
-        botaoSim.addEventListener("click", fugir);
+        // ===== BOTÃO SIM =====
+        // Funciona no celular e no computador
+        sim.addEventListener("pointerdown", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            fugir();
+        });
 
-        // Evento pro botão NÃO
-        function mostrarMacaco(e) {
-            if (e) e.preventDefault();
-            pergunta.classList.add("hide");
+        // ===== BOTÃO NÃO =====
+        nao.addEventListener("pointerdown", function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            question.classList.add("hide");
             final.classList.add("show");
-        }
-
-        botaoNao.addEventListener("click", mostrarMacaco);
-        botaoNao.addEventListener("touchend", mostrarMacaco);
+        });
     </script>
 </body>
 </html>
