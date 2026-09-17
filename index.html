@@ -4,14 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Uma pergunta importante 👀</title>
-
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
-
         body {
             min-height: 100vh;
             display: flex;
@@ -21,7 +19,6 @@
             background: linear-gradient(135deg, #171717, #3b0a0a, #111);
             overflow: hidden;
         }
-
         .background-circle {
             position: fixed;
             width: 300px;
@@ -31,15 +28,12 @@
             filter: blur(5px);
             animation: float 6s infinite alternate ease-in-out;
         }
-
         .circle1 { top: -100px; left: -100px; }
         .circle2 { bottom: -100px; right: -100px; animation-delay: 2s; }
-
         @keyframes float {
             from { transform: translateY(0); }
             to { transform: translateY(30px); }
         }
-
         .container {
             position: relative;
             width: 90%;
@@ -57,24 +51,18 @@
             flex-direction: column;
             justify-content: center;
         }
-
         .emoji {
             font-size: 55px;
             margin-bottom: 15px;
             animation: bounce 2s infinite;
         }
-
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-
         h1 { font-size: 30px; margin-bottom: 12px; }
-
         p { color: #aaa; margin-bottom: 35px; font-size: 16px; }
-
         .buttons { position: relative; width: 100%; height: 100px; }
-
         button {
             position: absolute;
             border: none;
@@ -84,19 +72,16 @@
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.2s ease, left 0.2s ease, top 0.2s ease;
+            z-index: 20;
         }
-
         #sim { background: #27ae60; color: white; left: 20%; top: 20px; }
         #sim:hover { transform: scale(1.08); }
-
         #nao { background: #e74c3c; color: white; right: 20%; top: 20px; }
         #nao:hover { transform: scale(1.08); }
-
         /* Tela final */
         .final { display: none; }
         .final.show { display: block; animation: aparecer 0.6s ease; }
         .question.hide { display: none; }
-
         .macaco {
             width: 280px;
             max-width: 90%;
@@ -105,12 +90,10 @@
             display: block;
             animation: aparecer 0.8s ease;
         }
-
         @keyframes aparecer {
             from { opacity: 0; transform: scale(0.7); }
             to { opacity: 1; transform: scale(1); }
         }
-
         @media (max-width: 500px) {
             .container { min-height: 380px; padding: 40px 20px; }
             h1 { font-size: 25px; }
@@ -120,50 +103,62 @@
         }
     </style>
 </head>
-
 <body>
-
     <div class="background-circle circle1"></div>
     <div class="background-circle circle2"></div>
-
     <div class="container">
-
         <!-- PERGUNTA -->
         <div class="question" id="question">
-
             <div class="emoji">🚿</div>
-
             <h1>Laís, você tomou banho hoje?</h1>
-
             <p>Pense bem antes de responder... 👀</p>
-
             <div class="buttons">
                 <button id="sim">SIM</button>
                 <button id="nao">NÃO</button>
             </div>
-
         </div>
-
         <!-- TELA FINAL: só a imagem -->
         <div class="final" id="final">
-
             <img
                 src="macaquinho.jpg"
                 alt="Macaquinho no banho"
                 class="macaco"
             >
-
         </div>
-
     </div>
-
     <script>
-
         const botaoSim = document.getElementById("sim");
         const botaoNao = document.getElementById("nao");
-
         const pergunta = document.getElementById("question");
         const final = document.getElementById("final");
 
-        // Faz o botão SIM fugir
+        // Faz o botão SIM fugir pela tela
         function fugir() {
+            botaoSim.style.position = "fixed";
+            botaoSim.style.zIndex = "9999";
+
+            const maxX = window.innerWidth - botaoSim.offsetWidth - 20;
+            const maxY = window.innerHeight - botaoSim.offsetHeight - 20;
+
+            const x = Math.random() * maxX;
+            const y = Math.random() * maxY;
+
+            botaoSim.style.left = x + "px";
+            botaoSim.style.top = y + "px";
+        }
+
+        // Quando passar o mouse ou clicar no SIM → ele foge
+        botaoSim.addEventListener("mouseover", fugir);
+        botaoSim.addEventListener("click", (e) => {
+            e.preventDefault();
+            fugir();
+        });
+
+        // Quando clicar no NÃO → mostra a imagem do macaquinho
+        botaoNao.addEventListener("click", () => {
+            pergunta.classList.add("hide");
+            final.classList.add("show");
+        });
+    </script>
+</body>
+</html>
