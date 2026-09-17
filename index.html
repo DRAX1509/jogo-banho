@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Uma pergunta importante 👀</title>
+    <title>Boa noite 💕</title>
     <style>
         * {
             box-sizing: border-box;
@@ -17,164 +17,114 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #171717, #3b0a0a, #111);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #ffe6f0, #ffcce0, #ffb3d9);
             overflow: hidden;
         }
-        .background-circle {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: rgba(255, 50, 50, 0.08);
-            filter: blur(5px);
-            animation: float 6s infinite alternate ease-in-out;
-            pointer-events: none;
-        }
-        .circle1 { top: -100px; left: -100px; }
-        .circle2 { bottom: -100px; right: -100px; animation-delay: 2s; }
-        @keyframes float {
-            from { transform: translateY(0); }
-            to { transform: translateY(30px); }
-        }
         .container {
-            position: relative;
             width: 90%;
-            max-width: 500px;
-            min-height: 360px;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 30px;
             padding: 40px 25px;
-            background: rgba(20, 20, 20, 0.92);
-            border-radius: 25px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             text-align: center;
-            color: white;
-            z-index: 10;
+            box-shadow: 0 15px 40px rgba(255, 105, 180, 0.25);
+            border: 2px solid #ffb6c1;
         }
         .emoji {
-            font-size: 55px;
+            font-size: 50px;
             margin-bottom: 15px;
-            animation: bounce 2s infinite;
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        h1 {
+            font-size: 28px;
+            color: #d63384;
+            margin-bottom: 12px;
         }
-        h1 { font-size: 26px; margin-bottom: 12px; }
-        p { color: #aaa; margin-bottom: 30px; font-size: 15px; }
-        .buttons {
-            position: relative;
-            width: 100%;
-            height: 120px;
-            margin-top: 10px;
+        p {
+            color: #aa3366;
+            font-size: 16px;
+            margin-bottom: 30px;
+            line-height: 1.4;
         }
         button {
-            position: absolute;
+            background: linear-gradient(to right, #ff6b9d, #ff8fab);
+            color: white;
             border: none;
-            padding: 16px 32px;
-            border-radius: 12px;
+            padding: 16px 40px;
+            border-radius: 50px;
             font-size: 18px;
             font-weight: bold;
-            color: white;
             cursor: pointer;
-            user-select: none;
-            -webkit-user-select: none;
-            touch-action: manipulation;
+            box-shadow: 0 8px 20px rgba(255, 105, 180, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-        #sim {
-            background: #27ae60;
-            left: 12%;
-            top: 30px;
+        button:active {
+            transform: scale(0.95);
         }
-        #nao {
-            background: #e74c3c;
-            right: 12%;
-            top: 30px;
-        }
-        .final {
+        .tela {
             display: none;
-        }
-        .final.show {
-            display: block;
             animation: aparecer 0.6s ease;
         }
-        .question.hide {
-            display: none;
-        }
-        .macaco {
-            width: 260px;
-            max-width: 90%;
-            border-radius: 15px;
-            margin: 0 auto;
+        .tela.ativa {
             display: block;
         }
-        @keyframes aparecer {
-            from { opacity: 0; transform: scale(0.7); }
-            to { opacity: 1; transform: scale(1); }
+        img {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 20px;
+            margin: 15px 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-        @media (max-width: 480px) {
-            h1 { font-size: 23px; }
-            #sim { left: 5%; }
-            #nao { right: 5%; }
+        .texto-fofo {
+            font-size: 20px;
+            color: #c2185b;
+            font-weight: 600;
+            margin: 10px 0 20px;
+        }
+        @keyframes aparecer {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <div class="background-circle circle1"></div>
-    <div class="background-circle circle2"></div>
-
     <div class="container">
-        <div class="question" id="question">
-            <div class="emoji">🚿</div>
-            <h1>Laís, você tomou banho hoje?</h1>
-            <p>Pense bem antes de responder... 👀</p>
-            <div class="buttons">
-                <button id="sim">SIM</button>
-                <button id="nao">NÃO</button>
-            </div>
+
+        <!-- TELA 1 - INÍCIO -->
+        <div class="tela ativa" id="tela1">
+            <div class="emoji">🌙💕</div>
+            <h1>Boa noite...</h1>
+            <p>Tenho uma coisinha especial pra você</p>
+            <button onclick="mostrarTela2()">Clique aqui 🌸</button>
         </div>
 
-        <div class="final" id="final">
-            <img src="macaquinho.jpg" alt="Macaquinho" class="macaco">
+        <!-- TELA 2 - PRIMEIRA FOTO -->
+        <div class="tela" id="tela2">
+            <div class="emoji">🌹</div>
+            <div class="texto-fofo">Uma flor pra uma flor 🌷</div>
+            <img src="flor.jpg" alt="Gatinho com rosa">
+            <br>
+            <button onclick="mostrarTela3()" style="margin-top: 15px;">Continuar 💖</button>
         </div>
+
+        <!-- TELA 3 - FOTO FINAL -->
+        <div class="tela" id="tela3">
+            <div class="emoji">✨</div>
+            <img src="princesa.jpg" alt="Boa noite princesa">
+            <div class="texto-fofo" style="margin-top: 15px;">Você merece o mundo inteiro 🥹</div>
+        </div>
+
     </div>
 
     <script>
-        const sim = document.getElementById("sim");
-        const nao = document.getElementById("nao");
-        const question = document.getElementById("question");
-        const final = document.getElementById("final");
-
-        function fugir() {
-            // Coloca o botão solto na tela
-            sim.style.position = "fixed";
-            sim.style.zIndex = "9999";
-
-            const maxX = window.innerWidth - sim.offsetWidth - 20;
-            const maxY = window.innerHeight - sim.offsetHeight - 20;
-
-            const x = Math.floor(Math.random() * maxX);
-            const y = Math.floor(Math.random() * maxY);
-
-            sim.style.left = x + "px";
-            sim.style.top = y + "px";
+        function mostrarTela2() {
+            document.getElementById("tela1").classList.remove("ativa");
+            document.getElementById("tela2").classList.add("ativa");
         }
-
-        // ===== BOTÃO SIM =====
-        // Funciona no celular e no computador
-        sim.addEventListener("pointerdown", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            fugir();
-        });
-
-        // ===== BOTÃO NÃO =====
-        nao.addEventListener("pointerdown", function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            question.classList.add("hide");
-            final.classList.add("show");
-        });
+        function mostrarTela3() {
+            document.getElementById("tela2").classList.remove("ativa");
+            document.getElementById("tela3").classList.add("ativa");
+        }
     </script>
 </body>
 </html>
