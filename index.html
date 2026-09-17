@@ -2,13 +2,14 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Uma pergunta importante 👀</title>
     <style>
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            -webkit-tap-highlight-color: transparent;
         }
         body {
             min-height: 100vh;
@@ -18,6 +19,7 @@
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #171717, #3b0a0a, #111);
             overflow: hidden;
+            touch-action: none;
         }
         .background-circle {
             position: fixed;
@@ -27,6 +29,7 @@
             background: rgba(255, 50, 50, 0.08);
             filter: blur(5px);
             animation: float 6s infinite alternate ease-in-out;
+            pointer-events: none;
         }
         .circle1 { top: -100px; left: -100px; }
         .circle2 { bottom: -100px; right: -100px; animation-delay: 2s; }
@@ -60,24 +63,38 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-        h1 { font-size: 30px; margin-bottom: 12px; }
+        h1 { font-size: 28px; margin-bottom: 12px; }
         p { color: #aaa; margin-bottom: 35px; font-size: 16px; }
-        .buttons { position: relative; width: 100%; height: 100px; }
+        .buttons { 
+            position: relative; 
+            width: 100%; 
+            height: 110px; 
+        }
         button {
             position: absolute;
             border: none;
-            padding: 15px 35px;
+            padding: 16px 36px;
             border-radius: 12px;
-            font-size: 17px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s ease, left 0.2s ease, top 0.2s ease;
+            transition: transform 0.15s ease;
             z-index: 20;
+            user-select: none;
+            -webkit-user-select: none;
         }
-        #sim { background: #27ae60; color: white; left: 20%; top: 20px; }
-        #sim:hover { transform: scale(1.08); }
-        #nao { background: #e74c3c; color: white; right: 20%; top: 20px; }
-        #nao:hover { transform: scale(1.08); }
+        #sim { 
+            background: #27ae60; 
+            color: white; 
+            left: 15%; 
+            top: 25px; 
+        }
+        #nao { 
+            background: #e74c3c; 
+            color: white; 
+            right: 15%; 
+            top: 25px; 
+        }
         /* Tela final */
         .final { display: none; }
         .final.show { display: block; animation: aparecer 0.6s ease; }
@@ -95,10 +112,10 @@
             to { opacity: 1; transform: scale(1); }
         }
         @media (max-width: 500px) {
-            .container { min-height: 380px; padding: 40px 20px; }
-            h1 { font-size: 25px; }
-            #sim { left: 10%; }
-            #nao { right: 10%; }
+            .container { min-height: 380px; padding: 40px 18px; }
+            h1 { font-size: 24px; }
+            #sim { left: 8%; }
+            #nao { right: 8%; }
             .macaco { width: 230px; }
         }
     </style>
@@ -117,28 +134,30 @@
                 <button id="nao">NÃO</button>
             </div>
         </div>
-        <!-- TELA FINAL: só a imagem -->
+        <!-- TELA FINAL -->
         <div class="final" id="final">
-            <img
-                src="macaquinho.jpg"
-                alt="Macaquinho no banho"
-                class="macaco"
-            >
+            <img src="macaquinho.jpg" alt="Macaquinho no banho" class="macaco">
         </div>
     </div>
+
     <script>
         const botaoSim = document.getElementById("sim");
         const botaoNao = document.getElementById("nao");
         const pergunta = document.getElementById("question");
         const final = document.getElementById("final");
 
-        // Faz o botão SIM fugir pela tela
-        function fugir() {
+        // Função que faz o SIM fugir
+        function fugir(e) {
+            if (e) e.preventDefault();
+
             botaoSim.style.position = "fixed";
             botaoSim.style.zIndex = "9999";
 
-            const maxX = window.innerWidth - botaoSim.offsetWidth - 20;
-            const maxY = window.innerHeight - botaoSim.offsetHeight - 20;
+            const btnWidth = botaoSim.offsetWidth;
+            const btnHeight = botaoSim.offsetHeight;
+
+            const maxX = window.innerWidth - btnWidth - 10;
+            const maxY = window.innerHeight - btnHeight - 10;
 
             const x = Math.random() * maxX;
             const y = Math.random() * maxY;
@@ -147,18 +166,20 @@
             botaoSim.style.top = y + "px";
         }
 
-        // Quando passar o mouse ou clicar no SIM → ele foge
+        // Eventos pro botão SIM (funciona no celular e no PC)
         botaoSim.addEventListener("mouseover", fugir);
-        botaoSim.addEventListener("click", (e) => {
-            e.preventDefault();
-            fugir();
-        });
+        botaoSim.addEventListener("touchstart", fugir, { passive: false });
+        botaoSim.addEventListener("click", fugir);
 
-        // Quando clicar no NÃO → mostra a imagem do macaquinho
-        botaoNao.addEventListener("click", () => {
+        // Evento pro botão NÃO
+        function mostrarMacaco(e) {
+            if (e) e.preventDefault();
             pergunta.classList.add("hide");
             final.classList.add("show");
-        });
+        }
+
+        botaoNao.addEventListener("click", mostrarMacaco);
+        botaoNao.addEventListener("touchend", mostrarMacaco);
     </script>
 </body>
 </html>
