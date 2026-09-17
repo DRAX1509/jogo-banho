@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Uma pergunta importante 👀</title>
 
     <style>
@@ -23,7 +22,6 @@
             overflow: hidden;
         }
 
-        /* Círculos decorativos no fundo */
         .background-circle {
             position: fixed;
             width: 300px;
@@ -34,28 +32,14 @@
             animation: float 6s infinite alternate ease-in-out;
         }
 
-        .circle1 {
-            top: -100px;
-            left: -100px;
-        }
-
-        .circle2 {
-            bottom: -100px;
-            right: -100px;
-            animation-delay: 2s;
-        }
+        .circle1 { top: -100px; left: -100px; }
+        .circle2 { bottom: -100px; right: -100px; animation-delay: 2s; }
 
         @keyframes float {
-            from {
-                transform: translateY(0);
-            }
-
-            to {
-                transform: translateY(30px);
-            }
+            from { transform: translateY(0); }
+            to { transform: translateY(30px); }
         }
 
-        /* Caixa principal */
         .container {
             position: relative;
             width: 90%;
@@ -69,6 +53,9 @@
             text-align: center;
             color: white;
             z-index: 10;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .emoji {
@@ -78,32 +65,15 @@
         }
 
         @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-10px);
-            }
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
-        h1 {
-            font-size: 30px;
-            margin-bottom: 12px;
-        }
+        h1 { font-size: 30px; margin-bottom: 12px; }
 
-        p {
-            color: #aaa;
-            margin-bottom: 35px;
-            font-size: 16px;
-        }
+        p { color: #aaa; margin-bottom: 35px; font-size: 16px; }
 
-        /* Área dos botões */
-        .buttons {
-            position: relative;
-            width: 100%;
-            height: 100px;
-        }
+        .buttons { position: relative; width: 100%; height: 100px; }
 
         button {
             position: absolute;
@@ -116,89 +86,37 @@
             transition: transform 0.2s ease, left 0.2s ease, top 0.2s ease;
         }
 
-        #sim {
-            background: #27ae60;
-            color: white;
-            left: 20%;
-            top: 20px;
-        }
+        #sim { background: #27ae60; color: white; left: 20%; top: 20px; }
+        #sim:hover { transform: scale(1.08); }
 
-        #sim:hover {
-            transform: scale(1.08);
-        }
-
-        #nao {
-            background: #e74c3c;
-            color: white;
-            right: 20%;
-            top: 20px;
-        }
-
-        #nao:hover {
-            transform: scale(1.08);
-        }
+        #nao { background: #e74c3c; color: white; right: 20%; top: 20px; }
+        #nao:hover { transform: scale(1.08); }
 
         /* Tela final */
-        .final {
-            display: none;
-        }
+        .final { display: none; }
+        .final.show { display: block; animation: aparecer 0.6s ease; }
+        .question.hide { display: none; }
 
-        .final.show {
+        .macaco {
+            width: 280px;
+            max-width: 90%;
+            border-radius: 15px;
+            margin: 0 auto;
             display: block;
-            animation: aparecer 0.6s ease;
-        }
-
-        .question.hide {
-            display: none;
-        }
-
-        .final-emoji {
-            font-size: 75px;
-            margin-bottom: 20px;
             animation: aparecer 0.8s ease;
         }
 
-        .final h2 {
-            font-size: 45px;
-            color: #ff4444;
-            margin-bottom: 15px;
-        }
-
-        .final p {
-            font-size: 18px;
-            color: #ddd;
-        }
-
         @keyframes aparecer {
-            from {
-                opacity: 0;
-                transform: scale(0.7);
-            }
-
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
+            from { opacity: 0; transform: scale(0.7); }
+            to { opacity: 1; transform: scale(1); }
         }
 
-        /* Celular */
         @media (max-width: 500px) {
-            .container {
-                min-height: 380px;
-                padding: 40px 20px;
-            }
-
-            h1 {
-                font-size: 25px;
-            }
-
-            #sim {
-                left: 10%;
-            }
-
-            #nao {
-                right: 10%;
-            }
+            .container { min-height: 380px; padding: 40px 20px; }
+            h1 { font-size: 25px; }
+            #sim { left: 10%; }
+            #nao { right: 10%; }
+            .macaco { width: 230px; }
         }
     </style>
 </head>
@@ -215,38 +133,25 @@
 
             <div class="emoji">🚿</div>
 
-            <h1>Alice, você tomou banho hoje?</h1>
+            <h1>Laís, você tomou banho hoje?</h1>
 
-            <p>
-                Pense bem antes de responder... 👀
-            </p>
+            <p>Pense bem antes de responder... 👀</p>
 
             <div class="buttons">
-
-                <button id="sim">
-                    SIM
-                </button>
-
-                <button id="nao">
-                    NÃO
-                </button>
-
+                <button id="sim">SIM</button>
+                <button id="nao">NÃO</button>
             </div>
 
         </div>
 
-        <!-- TELA FINAL -->
+        <!-- TELA FINAL: só a imagem -->
         <div class="final" id="final">
 
-            <div class="final-emoji">
-                😂🚿
-            </div>
-
-            <h2>EU SABIA!</h2>
-
-            <p>
-                Fedorenta KKKKKKK
-            </p>
+            <img
+                src="macaquinho.jpg"
+                alt="Macaquinho no banho"
+                class="macaco"
+            >
 
         </div>
 
@@ -260,62 +165,5 @@
         const pergunta = document.getElementById("question");
         const final = document.getElementById("final");
 
-
-        // Função para fazer o botão SIM fugir
+        // Faz o botão SIM fugir
         function fugir() {
-
-            const area = document.querySelector(".buttons");
-
-            const larguraMax =
-                area.clientWidth - botaoSim.offsetWidth;
-
-            const alturaMax =
-                area.clientHeight - botaoSim.offsetHeight;
-
-            // Gera uma posição aleatória
-            const novaPosicaoX =
-                Math.random() * larguraMax;
-
-            const novaPosicaoY =
-                Math.random() * alturaMax;
-
-            botaoSim.style.left = novaPosicaoX + "px";
-            botaoSim.style.top = novaPosicaoY + "px";
-        }
-
-
-        // Quando passar o mouse no SIM
-        botaoSim.addEventListener("mouseenter", fugir);
-
-
-        // Também funciona no celular quando tenta tocar
-        botaoSim.addEventListener("touchstart", function(event) {
-
-            event.preventDefault();
-
-            fugir();
-
-        });
-
-
-        // Caso consiga clicar no SIM de alguma forma
-        botaoSim.addEventListener("click", function() {
-
-            fugir();
-
-        });
-
-
-        // Quando clicar no NÃO
-        botaoNao.addEventListener("click", function() {
-
-            pergunta.classList.add("hide");
-
-            final.classList.add("show");
-
-        });
-
-    </script>
-
-</body>
-</html>
